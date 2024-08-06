@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construtor de Builds - Over Koton</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background: #007bff;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        main {
+            margin: 20px auto;
+            max-width: 800px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #007bff;
+        }
+
+        .dropdown {
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .dropdown-btn {
+            background: #e7e7e7;
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            text-align: left;
+        }
+
+        .options {
+            display: none;
+            position: absolute;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .options div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .options div:hover {
+            background: #f0f0f0;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #e7e7e7;
+        }
+
+        .extra {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .extra img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Construtor de Builds - Over Koton</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Monte sua Build</h2>
+            <form id="build-form">
+                <input type="hidden" id="raca" value="">
+                <div class="dropdown">
+                    <div class="dropdown-btn" id="racaBtn" onclick="toggleOptions('racaOptions')">Escolha uma Raça</div>
+                    <div class="options" id="racaOptions">
+                        <div onclick="selectOption('raca', 'Nova')">Nova</div>
+                        <div onclick="selectOption('raca', 'Devorados')">Devorados</div>
+                        <div onclick="selectOption('raca', 'Nigen-sei')">Nigen-sei</div>
+                        <div onclick="selectOption('raca', 'Aflingidos')">Aflingidos</div>
+                        <div onclick="selectOption('raca', 'Ascensius')">Ascensius</div>
+                        <div onclick="selectOption('raca', 'Daitaian')">Daitaian</div>
+                        <div onclick="selectOption('raca', 'Meio-demônio')">Meio-demônio</div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="cla" value="">
+                <div class="dropdown">
+                    <div class="dropdown-btn" id="claBtn" onclick="toggleOptions('claOptions')">Escolha um Clã</div>
+                    <div class="options" id="claOptions">
+                        <div onclick="selectOption('cla', 'Ikari')">Ikari</div>
+                        <div onclick="selectOption('cla', 'L\'amorie')">L'amorie</div>
+                        <div onclick="selectOption('cla', 'Shimura')">Shimura</div>
+                        <div onclick="selectOption('cla', 'Akan')">Akan</div>
+                        <div onclick="selectOption('cla', 'Atō-ho')">Atō-ho</div>
+                        <div onclick="selectOption('cla', 'Shinetsu')">Shinetsu</div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="arma" value="">
+                <div class="dropdown">
+                    <div class="dropdown-btn" id="armaBtn" onclick="toggleOptions('armaOptions')">Escolha uma Arma Lendária</div>
+                    <div class="options" id="armaOptions">
+                        <div onclick="selectOption('arma', 'Libertatis')">Libertatis</div>
+                        <div onclick="selectOption('arma', 'Hōfund')">Hōfund</div>
+                        <div onclick="selectOption('arma', 'X-blade')">X-blade</div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="caracteristica" value="">
+                <div class="dropdown">
+                    <div class="dropdown-btn" id="caracteristicaBtn" onclick="toggleOptions('caracteristicaOptions')">Escolha uma Característica</div>
+                    <div class="options" id="caracteristicaOptions">
+                        <div onclick="selectOption('caracteristica', 'Insurgente Inerente')">Insurgente Inerente</div>
+                        <div onclick="selectOption('caracteristica', 'Excalibur')">Excalibur</div>
+                        <div onclick="selectOption('caracteristica', 'Cultista')">Cultista</div>
+                        <div onclick="selectOption('caracteristica', 'O Honrado')">O Honrado</div>
+                        <div onclick="selectOption('caracteristica', 'Ala Bélica')">Ala Bélica</div>
+                        <div onclick="selectOption('caracteristica', 'Dissônancia Tempus')">Dissônancia Tempus</div>
+                        <div onclick="selectOption('caracteristica', 'Núncio Inerente')">Núncio Inerente</div>
+                        <div onclick="selectOption('caracteristica', 'Polo da Natureza')">Polo da Natureza</div>
+                        <div onclick="selectOption('caracteristica', 'Verdadeira Posse')">Verdadeira Posse</div>
+                        <div onclick="selectOption('caracteristica', 'Precursor da Verdade')">Precursor da Verdade</div>
+                        <div onclick="selectOption('caracteristica', 'Perfuratriz Celeste')">Perfuratriz Celeste</div>
+                        <div onclick="selectOption('caracteristica', 'Fortuna')">Fortuna</div>
+                        <div onclick="selectOption('caracteristica', 'Sublime Regente')">Sublime Regente</div>
+                        <div onclick="selectOption('caracteristica', 'Sortilégio Nucleico')">Sortilégio Nucleico</div>
+                        <div onclick="selectOption('caracteristica', 'Sapiência Obnubilar')">Sapiência Obnubilar</div>
+                        <div onclick="selectOption('caracteristica', 'Ouvinte Atemporal')">Ouvinte Atemporal</div>
+                        <div onclick="selectOption('caracteristica', 'Origem Decadente')">Origem Decadente</div>
+                        <div onclick="selectOption('caracteristica', 'Manifesto Ignóbil')">Manifesto Ignóbil</div>
+                        <div onclick="selectOption('caracteristica', 'Macrômano')">Macrômano</div>
+                        <div onclick="selectOption('caracteristica', 'Ligação Covalente')">Ligação Covalente</div>
+                        <div onclick="selectOption('caracteristica', 'Kiai Nulo')">Kiai Nulo</div>
+                        <div onclick="selectOption('caracteristica', 'Painel Frívolo')">Painel Frívolo</div>
+                        <div onclick="selectOption('caracteristica', 'Conclamação Etérea')">Conclamação Etérea</div>
+                        <div onclick="selectOption('caracteristica', 'Besta de Mil Faces')">Besta de Mil Faces</div>
+                        <div onclick="selectOption('caracteristica', 'Bacharel Necrótico')">Bacharel Necrótico</div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="arquetipo" value="">
+                <div class="dropdown">
+                    <div class="dropdown-btn" id="arquetipoBtn" onclick="toggleOptions('arquetipoOptions')">Escolha um Arquétipo</div>
+                    <div class="options" id="arquetipoOptions">
+                        <div onclick="selectOption('arquetipo', 'Senhor da Indolência')">Senhor da Indolência</div>
+                        <div onclick="selectOption('arquetipo', 'Faces Abomináveis')">Faces Abomináveis</div>
+                        <div onclick="selectOption('arquetipo', 'Espada Ignorante')">Espada Ignorante</div>
+                        <div onclick="selectOption('arquetipo', 'Maestro Abstruso')">Maestro Abstruso</div>
+                        <div onclick="selectOption('arquetipo', 'Porvindouro Demoníaco')">Porvindouro Demoníaco</div>
+                        <div onclick="selectOption('arquetipo', 'Progênie Ascendente')">Progênie Ascendente</div>
+                        <div onclick="selectOption('arquetipo', 'Vestígio de Regência')">Vestígio de Regência</div>
+                        <div onclick="selectOption('arquetipo', 'Depuração Mandatória')">Depuração Mandatória</div>
+                        <div onclick="selectOption('arquetipo', 'Devorado Regente')">Devorado Regente</div>
+                        <div onclick="selectOption('arquetipo', 'Sortilégio Energético')">Sortilégio Energético</div>
+                        <div onclick="selectOption('arquetipo', 'Sortilégio Biológico')">Sortilégio Biológico</div>
+                        <div onclick="selectOption('arquetipo', 'Basílica da Abnegação')">Basílica da Abnegação</div>
+                        <div onclick="selectOption('arquetipo', 'Abádia da Veneração')">Abádia da Veneração</div>
+                        <div onclick="selectOption('arquetipo', 'Prelado do Alcácer')">Prelado do Alcácer</div>
+                    </div>
+                </div>
+
+                <input type="hidden" id="aldeia" value="">
+                <div class="dropdown">
+                    <div class="dropdown-btn" id="aldeiaBtn" onclick="toggleOptions('aldeiaOptions')">Escolha uma Aldeia</div>
+                    <div class="options" id="aldeiaOptions">
+                        <div onclick="selectOption('aldeia', 'Aldeia Suna, Seigake')">Aldeia Suna, Seigake</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia [A Escolha], Fortuna')">Aldeia [A Escolha], Fortuna</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mori, Linhagem Atō-ho')">Aldeia Mori, Linhagem Atō-ho</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Yuki, Linhagem Shinetsu')">Aldeia Yuki, Linhagem Shinetsu</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Kaen, Linhagem L\'amorie')">Aldeia Kaen, Linhagem L'amorie</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mori, Província Yoshinō')">Aldeia Mori, Província Yoshinō</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mori, Província Yoichi')">Aldeia Mori, Província Yoichi</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mori, Interior')">Aldeia Mori, Interior</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Suna, Província Shimaraki')">Aldeia Suna, Província Shimaraki</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Suna, Província Akan')">Aldeia Suna, Província Akan</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Suna, Província Tone')">Aldeia Suna, Província Tone</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mizu, Província Tenjinsui')">Aldeia Mizu, Província Tenjinsui</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mizu, Província Kisho')">Aldeia Mizu, Província Kisho</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Mizu, Interior')">Aldeia Mizu, Interior</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Yuki, Província Totemo')">Aldeia Yuki, Província Totemo</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Yuki, Província Yurei')">Aldeia Yuki, Província Yurei</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Yuki, Distrito Shinko')">Aldeia Yuki, Distrito Shinko</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Kaen, Província Naibu')">Aldeia Kaen, Província Naibu</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Kaen, Interior')">Aldeia Kaen, Interior</div>
+                        <div onclick="selectOption('aldeia', 'Aldeia Kaen, Região Yesen')">Aldeia Kaen, Região Yesen</div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="submitForm()">Gerar Build</button>
+            </form>
+        </section>
+        <section id="resultado" class="resultado" style="display:none;">
+            <h2>Sua Build</h2>
+            <p id="buildResult"></p>
+        </section>
+    </main>
+
+    <div class="extra">
+        <p>Tao é uma gostosa.</p>
+        <img src="https://cdn.discordapp.com/attachments/1220362694972932126/1270017283879866379/311_Sem_Titulo_20240805105456.png?ex=66b22b44&is=66b0d9c4&hm=72241a891505e7688423009a74de1781434e4ccb9b07ffc86f73d837a7b97cd3&" alt="Imagem">
+    </div>
+
+    <script>
+        function toggleOptions(id) {
+            var options = document.getElementById(id);
+            if (options.style.display === 'none' || options.style.display === '') {
+                options.style.display = 'block';
+            } else {
+                options.style.display = 'none';
+            }
+        }
+
+        function selectOption(category, value) {
+            document.getElementById(category).value = value;
+            document.getElementById(category + 'Btn').innerText = value;
+            document.getElementById(category + 'Options').style.display = 'none';
+        }
+
+        function submitForm() {
+            var raca = document.getElementById('raca').value;
+            var cla = document.getElementById('cla').value;
+            var arma = document.getElementById('arma').value;
+            var caracteristica = document.getElementById('caracteristica').value;
+            var arquetipo = document.getElementById('arquetipo').value;
+            var aldeia = document.getElementById('aldeia').value;
+
+            var result = "Raça: " + raca + "<br>" +
+                         "Clã: " + cla + "<br>" +
+                         "Arma Lendária: " + arma + "<br>" +
+                         "Característica: " + caracteristica + "<br>" +
+                         "Arquétipo: " + arquetipo + "<br>" +
+                         "Aldeia: " + aldeia;
+
+            document.getElementById('buildResult').innerHTML = result;
+            document.getElementById('resultado').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+
